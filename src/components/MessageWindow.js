@@ -6,6 +6,8 @@ import SendMessageForm from "./SendMessageForm";
 import { Container, Grid } from "semantic-ui-react";
 import Player from "./PlayerComponent";
 import Message from "./Message";
+import TableComponent from "./TableComponent";
+
 import {
   Element,
   Events,
@@ -20,7 +22,6 @@ class MessageWindow extends Component {
   };
 
   componentDidMount() {
-
     //socket.on("get_data", this.getData);
     Events.scrollEvent.register("begin", function(to, element) {
       console.log("begin", arguments);
@@ -38,7 +39,7 @@ class MessageWindow extends Component {
   }
 
   componentWillUnmount() {
-   // socket.off("get_data");
+    // socket.off("get_data");
   }
 
   scrollToBottom = () => {
@@ -90,6 +91,9 @@ class MessageWindow extends Component {
           <Grid.Row>
             <Player />
           </Grid.Row>
+          <Grid.Row>
+            <TableComponent />
+          </Grid.Row>
         </Grid>
       </Container>
     );
@@ -105,7 +109,7 @@ class MessageWindow extends Component {
   }
 }
 
-const ContainerStyle = { minHeight: "100vh" };
+const ContainerStyle = { minHeight: "100vh", width: "800px" };
 const InptutStyle = { marginTop: 40 };
 const TextMessageStyle = {
   marginLeft: "10px",
