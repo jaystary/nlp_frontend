@@ -122,9 +122,9 @@ class App extends Component {
       < Header/>
         <MessageWindow ref={this.messagewindowElement} />
         <form onSubmit={this.handleOnSubmit}>
-        <button type="submit">Inside Custom</button>
+        <button type="submit">Submit for test</button>
       </form>
-       
+       Hello World
       </div>
     );
   }
