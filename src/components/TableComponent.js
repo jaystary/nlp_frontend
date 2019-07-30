@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import moment from "moment";
+import { Icon } from "semantic-ui-react";
+
 
 class TableComponent extends Component {
   constructor() {
@@ -13,7 +15,8 @@ class TableComponent extends Component {
           date: "12.23.2910",
           duration: "1.40",
           title: "Hello World",
-          download: "Strat" + <a> </a>
+          download: "",
+          delete: ""
         }
       ]
     };
@@ -23,7 +26,7 @@ class TableComponent extends Component {
 
     return (
       <div>
-        <ReactTable
+        <ReactTable style={ReactTableStyle}
           data={data}
           columns={[
             {
@@ -31,20 +34,44 @@ class TableComponent extends Component {
               id: "date",
               accessor: date => {
                 return moment().format("DD.MM.YYYY");
-              }
+              },
+              style: { textAlign: "center" }
             },
             {
               Header: "Duration",
-              accessor: "duration"
+              accessor: "duration",
+              style: { textAlign: "center" }
             },
             {
               Header: "Title",
-              accessor: "title"
+              accessor: "title",
+              style: { textAlign: "center" }
             },
             {
               Header: "Download",
-              accessor: "download"
-            }
+              accessor: "download",
+              Cell: () => {
+                return (
+                  <div style={{ textAlign: "center" }}>
+                    <a href="https://www.npmjs.com/package/react-table">Download</a>
+                  </div>
+                )
+              },
+              style: { textAlign: "center" }
+            },
+            {
+              Header: "Delete",
+              accessor: "delete",
+              expander: true,
+              width: 65,
+              Expander: () => {
+                return (
+                  <div style={{ textAlign: "center" }}>
+                    <Icon name="trash" /> ,
+                  </div>
+                );
+              }
+            },
           ]}
           defaultPageSize={10}
           className="-striped -highlight"
@@ -54,4 +81,8 @@ class TableComponent extends Component {
   }
 }
 
-export default TableComponent;
+const ReactTableStyle = {
+  width: "800px", marginLeft: "10px",
+}
+
+export default TableComponent; 
