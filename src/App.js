@@ -108,23 +108,11 @@ class App extends Component {
     socket.off("echo");
   }
 
-
-  handleOnSubmit = e => {
-    e.preventDefault();
-    //this.sendMessage("Hello World. How are you", 1, "infer");
-    this.doSomething()
-  };
-
-
   render() {
     return (
       <div className="App">
         < Header />
         <MessageWindow ref={this.messagewindowElement} />
-        <form onSubmit={this.handleOnSubmit}>
-          <button type="submit">Submit for test</button>
-        </form>
-        Hello Amy
       </div>
     );
   }

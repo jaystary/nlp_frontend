@@ -7,13 +7,24 @@ class SendMessageForm extends Component {
     state = {
         message: "",
         text: "",
-        selectItem: 'Select an Option'
+        selectItem: optionItems[0],
+        user: "jay",
+        data: ""
     };
 
     handleClick = (e) => {
         e.preventDefault();
-        console.log(this.state)
-        console.log('The link was clicked.');
+
+        fetch('/audioy', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.state)
+        }).then(response => response.json())
+        .then(data => this.setState({ data }));
+        console.log(this.state);
     }
 
     render() {
@@ -39,7 +50,7 @@ class SendMessageForm extends Component {
                         <Grid divided='vertically'>
                             <Grid.Row columns={3}>
                                 <Grid.Column>
-                                    <Input placeholder="text...."
+                                    <Input placeholder="3" style={{ width: "45px", textalign: "left" }}
                                         value={this.state.text}
                                         onChange={e => this.setState({ text: e.target.value })}
                                     />

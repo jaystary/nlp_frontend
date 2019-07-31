@@ -12,12 +12,29 @@ class TableComponent extends Component {
     this.state = {
       data: [
         {
+          id: "1",
           date: "12.23.2910",
           duration: "1.40",
           title: "Hello World",
           download: "",
           delete: ""
-        }
+        },
+        {
+          id: "2",
+          date: "12.23.2910",
+          duration: "1.40",
+          title: "Hello World",
+          download: "",
+          delete: ""
+        },
+        {
+          id: "3",
+          date: "12.23.2910",
+          duration: "1.40",
+          title: "Hello World",
+          download: "",
+          delete: ""
+        },
       ]
     };
   }
@@ -66,11 +83,11 @@ class TableComponent extends Component {
               width: 65,
               Expander: () => {
                 return (
-                  <div style={{ textAlign: "center" }}>
-                    <Icon name="trash" /> ,
+                  <div style={{ textAlign: "center" }} onClick={() => this.removeRow(this.state.data.id)}>
+                    <Icon name="trash" />
                   </div>
                 );
-              }
+              },
             },
           ]}
           defaultPageSize={10}
