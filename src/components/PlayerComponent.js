@@ -7,7 +7,7 @@ class Player extends Component {
     super(props);
     this.state = {};
     this.urlArr = ["https://jaystarymlmodels.s3.amazonaws.com/ttsMP3.com_VoiceText_2019-7-29_21_5_33.mp3",
-    "https://jaystarymlmodels.s3.amazonaws.com/ttsMP3.com_VoiceText_2019-7-29_21_5_40.mp3"];
+      "https://jaystarymlmodels.s3.amazonaws.com/ttsMP3.com_VoiceText_2019-7-29_21_5_40.mp3"];
   }
 
   state = {
@@ -17,7 +17,7 @@ class Player extends Component {
     muted: false,
     played: 0,
     loaded: 0,
-    playbackRate: 2.0, 
+    playbackRate: 2.0,
     urlArrIndex: 0
   };
 
@@ -37,7 +37,7 @@ class Player extends Component {
   onEnded = () => {
     console.log("Finished");
     this.urlArrIndex = this.urlArr.indexOf(this.state.url);
-    this.state.url = this.urlArr[this.urlArrIndex+1];
+    this.state.url = this.urlArr[this.urlArrIndex + 1];
     console.log(this.state.url)
     this.state.playing = true;
     //Fetch current track
@@ -58,39 +58,71 @@ class Player extends Component {
   //http://www.hubharp.com/web_sound/WalloonLilliShort.mp3
   render() {
 
-      const {
-        url,
-        playing,
-        volume,
-        muted,
-        played,
-        loaded,
-        playbackRate
-      } = this.state;
+    const {
+      url,
+      playing,
+      volume,
+      muted,
+      played,
+      loaded,
+      playbackRate
+    } = this.state;
     return (
-      <ReactPlayer url={ this.state.url } playing={ this.state.playing }
-            className="react-player"
-            controls
-            width="100%"
-            height="100%"
-            //url={url}
-            //playing={playing}
-            playbackRate={playbackRate}
-            volume={volume}
-            muted={muted}
-            onPlay={this.onPlay}
-            onPause={this.onPause}
-            onProgress={this.onProgress}
-            onEnded={this.onEnded}
-            marginLeft="20px"
-        width="800px"
-        height="50px"
-        
-      />
+      <div>
+        <ReactPlayer url={this.state.url} playing={this.state.playing}
+          className="react-player"
+          controls
+          width="100%"
+          height="100%"
+          //url={url}
+          //playing={playing}
+          playbackRate={playbackRate}
+          volume={volume}
+          muted={muted}
+          onPlay={this.onPlay}
+          onPause={this.onPause}
+          onProgress={this.onProgress}
+          onEnded={this.onEnded}
+          marginLeft="20px"
+          width="800px"
+          height="50px"
+        />
+        <br />
+        <div className="playerStyle" style={{ textAlign: "left" }}>
+
+          <Button
+            style={SpeedBtn}
+            onClick={this.setPlaybackRate}
+            value={1}
+          >
+            1x
+                  </Button>{" "}
+          <Button
+            style={SpeedBtn}
+            onClick={this.setPlaybackRate}
+            value={1.5}
+          >
+            1.5x
+                  </Button>{" "}
+          <Button
+            style={SpeedBtn}
+            onClick={this.setPlaybackRate}
+            value={2}
+          >
+            2x
+                  </Button>{" "}
+        </div>
+      </div>
     );
   }
 }
 
+const SpeedBtn = {
+  width: "45px",
+  textAlign: "center",
+  padding: "10px",
+  color: "#204969"
+};
 export default Player;
 
 /*

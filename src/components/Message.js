@@ -10,8 +10,12 @@ class Message extends React.Component {
   }
 
   render() {
-    return <div style={messageStyle}>{this.props.message}</div>;
+    return (<div style={messageStyle}>{this.props.message}</div>)
   }
+
+  // render() {
+  //   return <div style={messageStyle}>{this.props.message}</div>;
+  // }
 }
 
 const messageStyle = {

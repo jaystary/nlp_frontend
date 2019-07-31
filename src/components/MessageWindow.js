@@ -23,11 +23,11 @@ class MessageWindow extends Component {
 
   componentDidMount() {
     //socket.on("get_data", this.getData);
-    Events.scrollEvent.register("begin", function(to, element) {
+    Events.scrollEvent.register("begin", function (to, element) {
       console.log("begin", arguments);
     });
 
-    Events.scrollEvent.register("end", function(to, element) {
+    Events.scrollEvent.register("end", function (to, element) {
       console.log("end", arguments);
     });
 
@@ -82,8 +82,8 @@ class MessageWindow extends Component {
                 id="TextElement"
                 style={ElementStyle}
               >
-                {this.state.messages.map((message, index) => (
-                  <Message key={index} message={message.message} />
+                {this.state.messages.map((messages, index) => (
+                  <Message key={index} message={messages.message} />
                 ))}
               </Element>
             </Grid.Column>

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import moment from "moment";
-import { Icon } from "semantic-ui-react";
+import { Icon, Container } from "semantic-ui-react";
 
 
 class TableComponent extends Component {
@@ -42,7 +42,7 @@ class TableComponent extends Component {
     const { data } = this.state;
 
     return (
-      <div>
+      <div className="container">
         <ReactTable style={ReactTableStyle}
           data={data}
           columns={[
