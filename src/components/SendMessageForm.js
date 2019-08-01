@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, TextArea, Grid, Input } from "semantic-ui-react";
+import { socket, Header } from "./Header";
 
 const optionItems = ['Stream', 'Batch Processing']
 
@@ -11,7 +12,7 @@ class SendMessageForm extends Component {
             text: "",
             selectItem: optionItems[0],
             user: "jay",
-            data: "hello"
+            data: ""
         };
 
         this.handleClick = this.handleClick.bind(this)
@@ -23,7 +24,17 @@ class SendMessageForm extends Component {
 
     handleClick = (e) => {
         e.preventDefault();
-
+        console.log("click")
+        socket.emit(
+            'send_message',
+            {
+                route: "test",
+                id: 0,
+                body: JSON.stringify(this.state),
+                timeStamp: Date.now()
+            }
+        )
+        /*
         fetch('/audioy', {
             method: 'POST',
             headers: {
@@ -34,19 +45,9 @@ class SendMessageForm extends Component {
         }).then(response => response.json())
             .then(data => this.setState({ data }));
         console.log(this.state);
+        */
     }
 
-
-    // handleInputChange(event) {
-    //     const target = event.target;
-    //     const value = target.type === 'checkbox' ? target.checked : target.value;
-    //     const name = target.name;
-
-    //     this.setState({
-    //         [name]: value
-    //     })
-
-    // }
 
     // handleSubmit(event) {
     //     event.preventDefault();
@@ -56,13 +57,13 @@ class SendMessageForm extends Component {
 
         return (
             <div>
-                <Form onSubmit={this.handleSubmit}
-                // action="."
-                // onSubmit={e => {
-                //     e.preventDefault();
-                //     this.props.onSubmitMessage(this.state.message);
-                //     this.setState({ message: "" });
-                // }}
+                <Form
+                action="."
+                onSubmit={e => {
+                    e.preventDefault();
+                    this.props.onSubmitMessage(this.state.message);
+                    this.setState({ message: "" });
+                }}
                 >
                     <Form.Field>
                         <TextArea
@@ -71,7 +72,7 @@ class SendMessageForm extends Component {
                             name="message"
                             type="message"
                             value={this.state.message}
-                            onChange={this.handleInputChange}
+                            onChange={e => this.setState({ message: e.target.value })}
                         />
                     </Form.Field>
                     <Grid >
@@ -81,17 +82,23 @@ class SendMessageForm extends Component {
                                     name="text"
                                     type="text"
                                     value={this.state.text}
-                                    onChange={this.handleInputChange}
+                                    onChange={e => this.setState({ text: e.target.value })}
                                 />
                             </Grid.Column>
                             <Grid.Column style={{ width: "auto" }}>
                                 <select
-                                    name="selectItem"
-                                    type="selectItem"
-                                    value={this.state.option}
-                                    onChange={this.handleInputChange}  >
+                                    value={this.state.selectItem}
+                                    onChange={e =>
+                                        this.setState({ selectItem: e.target.value })
+                                    }
+                                    style={{ marginRight: "500px" }}
+                                >
                                     {optionItems.map(optionItem => {
-                                        return <option value={optionItem} key={optionItem} >{optionItem}</option>
+                                        return (
+                                            <option value={optionItem} key={optionItem}>
+                                                {optionItem}
+                                            </option>
+                                        );
                                     })}
                                 </select>
                             </Grid.Column>

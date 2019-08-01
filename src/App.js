@@ -22,6 +22,13 @@ class App extends Component {
     this.setState({ [name]: value });
   }
 
+  setSocketListeners() {
+    socket.on("message", data => {
+      console.log("Logging incomcing Message")
+      console.log(data.message);
+    });
+  }
+
   /*
     sendMessage(message, id, route) {
       console.log("sending")
@@ -86,11 +93,6 @@ class App extends Component {
   echoResponse = resp => {
     console.log(resp)
   };
-
-  doSomething() {
-    socket.emit("getdata", "Hello World.");
-  }
-
 
   componentDidMount() {
     //this.loadMessages();
