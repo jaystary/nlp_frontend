@@ -68,9 +68,9 @@ class MessageWindow extends Component {
           <Grid.Row style={InptutStyle}>
             <Grid.Column>
               <SendMessageForm
-                onSubmitMessage={messageString =>
-                  this.submitMessage(messageString)
-                }
+              // onSubmitMessage={messageString =>
+              //   this.submitMessage(messageString)
+              // }
               />
             </Grid.Column>
           </Grid.Row>
@@ -82,9 +82,12 @@ class MessageWindow extends Component {
                 id="TextElement"
                 style={ElementStyle}
               >
+                <Message message={this.state.message} />
+                {/*
                 {this.state.messages.map((messages, index) => (
                   <Message key={index} message={messages.message} />
                 ))}
+                */}
               </Element>
             </Grid.Column>
           </Grid.Row>
