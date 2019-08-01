@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, TextArea, Grid, Input } from "semantic-ui-react";
+import { Button, Form, TextArea, Grid, Input, GridColumn } from "semantic-ui-react";
 import { socket, Header } from "./Header";
 
 const optionItems = ['Stream', 'Batch Processing']
@@ -58,29 +58,25 @@ class SendMessageForm extends Component {
         return (
             <div>
                 <Form
-                action="."
-                onSubmit={e => {
-                    e.preventDefault();
-                    this.props.onSubmitMessage(this.state.message);
-                    this.setState({ message: "" });
-                }}
+                    action="."
+                    onSubmit={e => {
+                        e.preventDefault();
+                        this.props.onSubmitMessage(this.state.message);
+                        this.setState({ message: "" });
+                    }}
                 >
                     <Form.Field>
                         <TextArea
                             rows="20"
                             placeholder={"Enter your sentences..."}
-                            name="message"
-                            type="message"
                             value={this.state.message}
                             onChange={e => this.setState({ message: e.target.value })}
                         />
                     </Form.Field>
                     <Grid >
-                        <Grid.Row >
-                            <Grid.Column   >
+                        <Grid.Row>
+                            <Grid.Column>
                                 <Input style={{ width: "45px" }} placeholder="3"
-                                    name="text"
-                                    type="text"
                                     value={this.state.text}
                                     onChange={e => this.setState({ text: e.target.value })}
                                 />
@@ -91,7 +87,6 @@ class SendMessageForm extends Component {
                                     onChange={e =>
                                         this.setState({ selectItem: e.target.value })
                                     }
-                                    style={{ marginRight: "500px" }}
                                 >
                                     {optionItems.map(optionItem => {
                                         return (
@@ -102,7 +97,7 @@ class SendMessageForm extends Component {
                                     })}
                                 </select>
                             </Grid.Column>
-                            <Grid.Column floated='right' width={5} >
+                            <Grid.Column floated='right' width={5}>
                                 <Button onClick={this.handleClick} color="primary" type="submit" value={"Send"}>Send</Button>
                             </Grid.Column>
                         </Grid.Row>
