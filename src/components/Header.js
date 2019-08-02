@@ -6,7 +6,7 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      endpoint: "http://localhost:8888/" 
+      endpoint: "http://0.0.0.0:2999/" 
     };
 
     socket = socketIOClient(this.state.endpoint);

@@ -5,8 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css'
 import io from 'socket.io-client'
-
-const socket = io('http://localhost:8888')
+import { socket, Header } from "./components/Header";
 
 ReactDOM.render(<App socket={socket} />, document.getElementById('root'))
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form, TextArea, Grid, Input, GridColumn } from "semantic-ui-react";
 import { socket, Header } from "./Header";
+import { templateLiteral } from "@babel/types";
 
 const optionItems = ['Stream', 'Batch Processing']
 
@@ -14,24 +15,32 @@ class SendMessageForm extends Component {
             user: "jay",
             data: ""
         };
-
+        
         this.handleClick = this.handleClick.bind(this)
-        //  this.handleInputChange = this.handleInputChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
+    componentDidMount() {
+        socket.on("message", data => this.setState({ response: data }));
+    }
 
+    componentDidUpdate() {
+        console.log("Response coming")
+
+    }
 
     handleClick = (e) => {
         e.preventDefault();
-        console.log("click")
+        console.log(this.state)
+        let data = JSON.stringify(this.state)
+        let timeStampVal = Date.now()
         socket.emit(
             'send_message',
             {
                 route: "test",
                 id: 0,
-                body: JSON.stringify(this.state),
-                timeStamp: Date.now()
+                body: data,
+                timeStamp: timeStampVal
             }
         )
         /*
@@ -49,9 +58,6 @@ class SendMessageForm extends Component {
     }
 
 
-    // handleSubmit(event) {
-    //     event.preventDefault();
-    // }
 
     render() {
 
@@ -103,7 +109,6 @@ class SendMessageForm extends Component {
                         </Grid.Row>
                     </Grid>
                 </Form>
-                <p>{this.state.value}</p>
             </div>
         );
     }

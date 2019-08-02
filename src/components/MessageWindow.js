@@ -16,10 +16,15 @@ import {
 } from "react-scroll";
 
 class MessageWindow extends Component {
-  state = {
-    messages: [],
-    message: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: [],
+      message: "",
+      dataSendMessage: ""
+    };
+
+  }
 
   componentDidMount() {
     //socket.on("get_data", this.getData);
@@ -67,11 +72,7 @@ class MessageWindow extends Component {
         <Grid>
           <Grid.Row style={InptutStyle}>
             <Grid.Column>
-              <SendMessageForm
-              // onSubmitMessage={messageString =>
-              //   this.submitMessage(messageString)
-              // }
-              />
+              <SendMessageForm/>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -100,15 +101,7 @@ class MessageWindow extends Component {
         </Grid>
       </Container>
     );
-    //   <div>
-    //     <SendMsgForm
-    //       onSubmitMessage={messageString => this.submitMessage(messageString)}
-    //     />
-    //     {this.state.messages.map((message, index) => (
-    //       <Text key={index} message={message.message} />
-    //     ))}
-    //   </div>
-    // );
+   
   }
 }
 

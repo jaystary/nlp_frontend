@@ -12,10 +12,6 @@ class Message extends React.Component {
   render() {
     return (<div style={messageStyle}>{this.props.message}</div>)
   }
-
-  // render() {
-  //   return <div style={messageStyle}>{this.props.message}</div>;
-  // }
 }
 
 const messageStyle = {
@@ -26,18 +22,3 @@ const messageStyle = {
 
 export default Message;
 
-/*
-function Message(props) {
-  const { body } = props.message;
-  return <p>{body}</p>;
-}
-
-Message.propTypes = {
-  message: propTypes.shape({
-    body: propTypes.string,
-    timestamp: propTypes.instanceOf(Date)
-  })
-};
-
-export default Message;
-*/

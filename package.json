@@ -8,9 +8,11 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-player": "^1.11.1",
+    "react-redux": "^7.1.0",
     "react-scripts": "^3.0.1",
     "react-scroll": "^1.7.12",
     "react-table": "^6.10.0",
+    "redux": "^4.0.4",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.3",
     "socket.io": "^2.2.0"
