@@ -15,20 +15,18 @@ class Player extends Component {
       muted: false,
       played: 0,
       loaded: 0,
-      playbackRate: 2.0,
+      playbackRate: 1.0,
     };
 
-    // this.urlArr = ["https://jaystarymlmodels.s3.amazonaws.com/ttsMP3.com_VoiceText_2019-7-29_21_5_33.mp3",
-    //   "https://jaystarymlmodels.s3.amazonaws.com/ttsMP3.com_VoiceText_2019-7-29_21_5_40.mp3"];
   }
 
   componentDidMount() {
     this.load(this.props.playerURLs[0]);
   }
 
-  shouldComponentUpdate(nextProps) {
-    if( nextProps.playerURLs.length !== this.props.playerURLs.length ) {
-      this.load(nextProps.playerURLs[0]);
+  componentDidUpdate(prevProps) {
+    if( prevProps.playerURLs.length !== this.props.playerURLs.length ) {
+      this.load(this.props.playerURLs[0]);
     }
     
     return true;

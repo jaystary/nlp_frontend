@@ -5,30 +5,7 @@ import _ from "lodash";
 // Define the Table initial store
 const tableState = {
   tableData: [
-    {
-      id: "1",
-      date: "12.23.2910",
-      duration: "1.40",
-      title: "Hello World",
-      download: "",
-      delete: "",
-    },
-    {
-      id: "2",
-      date: "12.23.2910",
-      duration: "1.50",
-      title: "Hello World",
-      download: "",
-      delete: "",
-    },
-    {
-      id: "3",
-      date: "12.23.2910",
-      duration: "1.60",
-      title: "Hello World",
-      download: "",
-      delete: "",
-    },
+    
   ],
 };
 

@@ -1,17 +1,13 @@
 import React from "react";
-// import propTypes from "prop-types";
+
 
 class Message extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     message: ""
-  //   };
-  // }
 
   render() {
+    const { message } = this.props;
+
     return (
-      <div style={messageStyle}>{ this.props.message }</div>
+      <div style={messageStyle}><a href="asdf.html">{message.sentence }</a></div>
     );
   }
 }
@@ -21,6 +17,7 @@ const messageStyle = {
   fontWeight: "bold",
   textAlign: "left",
 };
+
 
 export default Message;
 

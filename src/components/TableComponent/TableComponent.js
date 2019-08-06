@@ -26,9 +26,7 @@ class TableComponent extends Component {
             {
               Header: "Date",
               id: "date",
-              accessor: (date) => {
-                return moment(date).format("DD.MM.YYYY");
-              },
+              accessor: "date",
               style: CenterStyle,
             },
             {
@@ -44,10 +42,10 @@ class TableComponent extends Component {
             {
               Header: "Download",
               accessor: "download",
-              Cell: () => {
+              Cell: (row) => {
                 return (
                   <div style={CenterStyle}>
-                    <a href="https://www.npmjs.com/package/react-table">Download</a>
+                    <a href={"https://audiomodelstts.s3.eu-central-1.amazonaws.com/"+tableData[row.index].id+".mp3"}>Download</a>
                   </div>
                 )
               },
@@ -78,6 +76,7 @@ const ReactTableStyle = {
   width: "800px", 
   marginLeft: "10px",
 }
+
 
 const CenterStyle = {
   textAlign: 'center',

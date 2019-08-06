@@ -8,6 +8,7 @@ const socket = state => state.socketReducer;
 
 // Message Selectors
 export const makeCurrentMessage = createSelector(message, message => message.currentMessage);
+export const makeMessages = createSelector(message, message => message.messages);
 
 // Player Selectors
 export const makePlayerData = createSelector(player, player => player.playerData);

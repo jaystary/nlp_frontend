@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Grid } from "semantic-ui-react";
-// import propTypes from "prop-types";
-// import MessageComponent from "./MessageComponent";
+import { connect } from "react-redux";
+import { makeMessages } from "../../redux/selectors";
 
 import SendMessageForm from "../../components/SendMessageForm";
 import Message from "../../components/Message";
@@ -27,7 +27,6 @@ class MessageWindow extends Component {
   }
 
   componentDidMount() {
-    // socket.on("get_data", this.getData);
     Events.scrollEvent.register("begin", function (to, element) {
       console.log("begin", arguments);
     });
@@ -59,7 +58,7 @@ class MessageWindow extends Component {
     console.log(response);
     //const message = { name: this.state.name, message: messageString };
     //this.setState(state => ({ messages: [...state.messages, message] }));
-    //this.setState({ food_data: foodItems });
+   
   };
 
   submitMessage = (messageString) => {
@@ -67,6 +66,8 @@ class MessageWindow extends Component {
   };
 
   render() {
+    const { messages } = this.props;
+
     return (
       <Container style={ContainerStyle}>
         <Grid>
@@ -84,11 +85,11 @@ class MessageWindow extends Component {
                 style={ElementStyle}
               >
                 <Message message={this.state.message} />
-                {/* {
-                {this.state.messages.map((messages, index) => (
-                  <Message key={index} message={messages.message} />
-                ))}
-                } */}
+        
+                {messages && messages.map((message, index) => {
+                  console.log(message);
+                  return <Message key={index} message={message} />
+                })}
               </Element>
             </Grid.Column>
           </Grid.Row>
@@ -119,4 +120,12 @@ const ElementStyle = {
   overflow: "auto",
 };
 
-export default MessageWindow;
+const mapStateToProps = (state) => ({
+  messages: makeMessages(state),
+});
+
+const mapDispatchToProps = {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageWindow);

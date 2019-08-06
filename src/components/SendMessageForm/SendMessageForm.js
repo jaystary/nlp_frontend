@@ -38,24 +38,12 @@ class SendMessageForm extends Component {
     socket.emit(
       'send_message',
       {
-        route: "test",
+        route: "empty",
         id: 0,
         body: data,
         timeStamp: timeStampVal
       }
     );
-    /*
-    fetch('/audioy', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.state)
-    }).then(response => response.json())
-        .then(data => this.setState({ data }));
-    console.log(this.state);
-    */
   }
 
   handleChange = (e) => {
@@ -77,37 +65,14 @@ class SendMessageForm extends Component {
         <Form.Field>
           <TextArea
             name="message"
-            placeholder={"Enter your sentences..."}
+            placeholder={"Enter your text..."}
             rows="20"
             onChange={this.handleChange}
           />
         </Form.Field>
         <Grid >
           <Grid.Row>
-            <Grid.Column>
-              <Input  
-                name="text"
-                placeholder="3"
-                value={text}
-                style={{ width: "45px" }}
-                onChange={this.handleChange}
-              />
-            </Grid.Column>
-            <Grid.Column style={{ width: "auto" }}>
-              <select
-                name="selectItem"
-                value={selectItem}
-                onChange={this.handleChange}
-              >
-                {optionItems.map(optionItem => {
-                  return (
-                    <option value={optionItem} key={optionItem}>
-                      {optionItem}
-                    </option>
-                  );
-                })}
-              </select>
-            </Grid.Column>
+            
             <Grid.Column floated='right' width={5}>
               <Button 
                 type="submit"
