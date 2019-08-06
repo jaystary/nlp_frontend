@@ -10,7 +10,7 @@ import {
   setTableData,
   setPlayerData,
   setPlayerURLs,
-  appendMessage,
+  appendMessage
 } from "./redux/actions";
 
 import "./App.css";

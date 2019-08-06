@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Form, TextArea, Grid, Input } from "semantic-ui-react";
 import { makeSocket } from "../../redux/selectors";
+import { clearMessages, clearPlayers } from "../../redux/actions";
 
 const optionItems = ['Stream', 'Batch Processing']
 
@@ -20,7 +21,6 @@ class SendMessageForm extends Component {
 
   componentDidMount() {
     const { socket } = this.props;
-
     socket.on("message", data => this.setState({ response: data }));
   }
 
@@ -33,7 +33,12 @@ class SendMessageForm extends Component {
     console.log(this.state);
     const data = JSON.stringify(this.state);
     const timeStampVal = Date.now();
-    const { socket } = this.props;
+    const { socket, clearMessages, clearPlayers, clearMessage } = this.props;
+
+    clearMessages();
+    clearPlayers();
+    clearMessage(); // From MessageWindow
+
 
     socket.emit(
       'send_message',
@@ -94,7 +99,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-
+  clearMessages,
+  clearPlayers,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendMessageForm);

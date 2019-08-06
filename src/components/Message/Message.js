@@ -1,13 +1,23 @@
 import React from "react";
-
+import { connect } from "react-redux";
+import { setStartIndex } from "../../redux/actions";
 
 class Message extends React.Component {
+  handleClick = (e, index) => {
+    e.preventDefault();
+    const { setStartIndex } = this.props;
 
+    setStartIndex(index);
+  }
   render() {
-    const { message } = this.props;
+    const { message, playerURL, index } = this.props;
 
     return (
-      <div style={messageStyle}><a href="asdf.html">{message.sentence }</a></div>
+      <div style={messageStyle}>
+        <a href={playerURL} onClick={(e) => this.handleClick(e, index)}>
+          {message.sentence}
+        </a>
+      </div>
     );
   }
 }
@@ -18,6 +28,13 @@ const messageStyle = {
   textAlign: "left",
 };
 
+const mapStateToProps = (state) => ({
 
-export default Message;
+});
+
+const mapDispatchToProps = {
+  setStartIndex,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Message);
 

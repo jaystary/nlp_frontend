@@ -24,5 +24,8 @@ export default handleActions({
   },
   [types.APPEND_MESSAGE]: (state, action) => {
     return { ...state, messages: [...state.messages, ...action.payload] };
-  } 
+  },
+  [types.CLEAR_MESSAGES]: (state) => {
+    return { ...state, messages: [] }
+  },
 }, messageState);

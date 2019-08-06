@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactPlayer from "react-player";
 import { connect } from "react-redux";
-import { makePlayerURLs } from "../../redux/selectors";
+import { makeMessages, makePlayerURLs, makePlayerIndex } from "../../redux/selectors";
 import SpeedButton from './SpeedButton';
 
 class Player extends Component {
@@ -9,7 +9,7 @@ class Player extends Component {
     super(props);
 
     this.state = {
-      url: null,
+      url: [],
       playing: false,
       volume: 0.8,
       muted: false,
@@ -20,6 +20,7 @@ class Player extends Component {
 
   }
 
+
   componentDidMount() {
     this.load(this.props.playerURLs[0]);
   }
@@ -28,11 +29,16 @@ class Player extends Component {
     if( prevProps.playerURLs.length !== this.props.playerURLs.length ) {
       this.load(this.props.playerURLs[0]);
     }
-    
+    if( prevProps.startIndex !== this.props.startIndex ) {
+      console.log('Updated startIndex');
+      this.load(this.props.playerURLs[this.props.startIndex]);
+    }
+
     return true;
   }
 
   load = (url) => {
+    
     this.setState({
       url,
       played: 0,
@@ -41,21 +47,27 @@ class Player extends Component {
     });
   };
 
+  onPlay = () => {
+    const { playerURLs } = this.props;
+    const { url } = this.state;
+    const playerURLsIndex = playerURLs.indexOf(url);
+    const { addMessage, messages } = this.props;
+    
+    if( url) {
+      addMessage(messages[playerURLsIndex]);
+    }
+  }
+
   onEnded = () => {
     const { playerURLs } = this.props;
     const playerURLsIndex = playerURLs.indexOf(this.state.url);
 
-    console.log("Finished");
-    // this.state.url = urlArr[this.urlArrIndex + 1];
-    // console.log(this.state.url)
     // this.state.playing = true;
     this.setState({
       url: playerURLs[playerURLsIndex + 1],
       playing: true,
     })
-    //Fetch current track
-    //Get track +1
-    //Play track +1
+
     //this.setState({ playing: true });
   };
 
@@ -83,7 +95,7 @@ class Player extends Component {
       <div>
         <ReactPlayer url={url} playing={playing}
           className="react-player"
-          controls
+          controls={true}
           // width="100%"
           // height="100%"
           playbackRate={playbackRate}
@@ -111,7 +123,9 @@ class Player extends Component {
 }
 
 const mapStateToProps = (state) =>({
+  messages: makeMessages(state),
   playerURLs: makePlayerURLs(state),
+  startIndex: makePlayerIndex(state),
 });
 
 const mapDispatchToProps = {

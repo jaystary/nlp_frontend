@@ -7,7 +7,7 @@ const playerState = {
   ],
   playerURLs: [
   ],
-  currentPlayerURL: "",
+  startIndex: 0,
   loading: false,
 };
 
@@ -18,5 +18,14 @@ export default handleActions({
   },
   [types.SET_PLAYER_DATA]: (state, action) => {
     return { ...state, playerData: [...state.playerData, ...action.payload] };
+  },
+  [types.SET_CURRENT_URL]: (state, action) => {
+    return { ...state, playerURLs: [action.payload] };
+  },
+  [types.CLEAR_PLAYERS]: (state) => {
+    return { ...state, playerData: [], playerURLs: [], startIndex: 0 };
+  },
+  [types.PLAYER_START_INDEX]: (state, action) => {
+    return { ...state, startIndex: action.payload }
   },
 }, playerState);

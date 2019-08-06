@@ -13,6 +13,7 @@ export const makeMessages = createSelector(message, message => message.messages)
 // Player Selectors
 export const makePlayerData = createSelector(player, player => player.playerData);
 export const makePlayerURLs = createSelector(player, player => player.playerURLs);
+export const makePlayerIndex = createSelector(player, player => player.startIndex);
 
 // Table Selectors
 export const makeTableData = createSelector(table, table => table.tableData);

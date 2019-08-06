@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Grid } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { makeMessages } from "../../redux/selectors";
+import { makePlayerURLs } from "../../redux/selectors";
 
 import SendMessageForm from "../../components/SendMessageForm";
 import Message from "../../components/Message";
@@ -56,24 +56,32 @@ class MessageWindow extends Component {
 
   getData = (response) => {
     console.log(response);
-    //const message = { name: this.state.name, message: messageString };
-    //this.setState(state => ({ messages: [...state.messages, message] }));
    
   };
 
-  submitMessage = (messageString) => {
-    //socket.emit("get_data", messageString);
+  addMessage = (message) => {
+    const { messages } = this.state;
+
+    messages.push(message);
+    this.setState({ messages });
+  };
+
+  clearMessage = () => {
+    this.setState({ messages: [] });
   };
 
   render() {
-    const { messages } = this.props;
+    const { playerURLs } = this.props;
+    const { messages } = this.state;
+
+    console.log('Messages', messages);
 
     return (
       <Container style={ContainerStyle}>
         <Grid>
           <Grid.Row style={InptutStyle}>
             <Grid.Column>
-              <SendMessageForm/>
+              <SendMessageForm clearMessage={this.clearMessage}/>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -84,17 +92,19 @@ class MessageWindow extends Component {
                 id="TextElement"
                 style={ElementStyle}
               >
-                <Message message={this.state.message} />
-        
                 {messages && messages.map((message, index) => {
-                  console.log(message);
-                  return <Message key={index} message={message} />
+                  return <Message 
+                          key={index}
+                          message={message}
+                          playerURL={playerURLs[index]}
+                          index={index}
+                          />
                 })}
               </Element>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Player />
+            <Player addMessage={this.addMessage}/>
           </Grid.Row>
           <Grid.Row>
             <TableComponent />
@@ -121,7 +131,7 @@ const ElementStyle = {
 };
 
 const mapStateToProps = (state) => ({
-  messages: makeMessages(state),
+  playerURLs: makePlayerURLs(state),
 });
 
 const mapDispatchToProps = {

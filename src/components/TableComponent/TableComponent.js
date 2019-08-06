@@ -3,14 +3,25 @@ import ReactTable from "react-table";
 import { connect } from "react-redux";
 import { Icon, Container } from "semantic-ui-react";
 import { makeTableData } from "../../redux/selectors";
-import { deleteTableData } from "../../redux/actions";
-import moment from "moment";
+import { 
+  deleteTableData,
+  setCurrentURL,
+} from "../../redux/actions";
+
 
 import "react-table/react-table.css";
 
 class TableComponent extends Component {
   removeRow = (id) => {
     this.props.deleteTableData({ id });
+  }
+
+  handleClick = (e, urlData) => {
+    e.preventDefault();
+    const { setCurrentURL } = this.props;
+    console.log('data', urlData);
+
+    setCurrentURL(urlData);
   }
 
   render() {
@@ -43,9 +54,10 @@ class TableComponent extends Component {
               Header: "Download",
               accessor: "download",
               Cell: (row) => {
+                const urlData = "https://audiomodelstts.s3.eu-central-1.amazonaws.com/"+tableData[row.index].id+".mp3";
                 return (
                   <div style={CenterStyle}>
-                    <a href={"https://audiomodelstts.s3.eu-central-1.amazonaws.com/"+tableData[row.index].id+".mp3"}>Download</a>
+                    <a href={urlData} onClick={(e) => this.handleClick(e, urlData)}>Download</a>
                   </div>
                 )
               },
@@ -88,6 +100,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   deleteTableData,
+  setCurrentURL,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableComponent); 
