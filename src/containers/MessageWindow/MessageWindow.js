@@ -56,7 +56,7 @@ class MessageWindow extends Component {
 
   getData = (response) => {
     console.log(response);
-   
+
   };
 
   addMessage = (message) => {
@@ -79,12 +79,11 @@ class MessageWindow extends Component {
     return (
       <Container style={ContainerStyle}>
         <Grid>
-          <Grid.Row style={InptutStyle}>
+          <Grid.Row columns={2} style={InptutStyle}>
             <Grid.Column>
-              <SendMessageForm clearMessage={this.clearMessage}/>
+              <SendMessageForm clearMessage={this.clearMessage} />
             </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
+
             <Grid.Column style={TextMessageStyle}>
               <Element
                 name="TextElement"
@@ -93,18 +92,18 @@ class MessageWindow extends Component {
                 style={ElementStyle}
               >
                 {messages && messages.map((message, index) => {
-                  return <Message 
-                          key={index}
-                          message={message}
-                          playerURL={playerURLs[index]}
-                          index={index}
-                          />
+                  return <Message
+                    key={index}
+                    message={message}
+                    playerURL={playerURLs[index]}
+                    index={index}
+                  />
                 })}
               </Element>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Player addMessage={this.addMessage}/>
+            <Player addMessage={this.addMessage} />
           </Grid.Row>
           <Grid.Row>
             <TableComponent />
@@ -112,7 +111,7 @@ class MessageWindow extends Component {
         </Grid>
       </Container>
     );
-   
+
   }
 }
 
@@ -121,8 +120,6 @@ const InptutStyle = { marginTop: 40, };
 const TextMessageStyle = {
   background: "#93b5b3",
   borderRadius: "4px",
-  marginLeft: "10px",
-  marginRight: "10px",
 };
 const ElementStyle = {
   position: "relative",

@@ -10,7 +10,7 @@ class Player extends Component {
 
     this.state = {
       url: [],
-      playing: false,
+      playing: true,
       volume: 0.8,
       muted: false,
       played: 0,
@@ -86,7 +86,7 @@ class Player extends Component {
       volume,
       muted,
       // played,
-      // loaded,
+      //loaded,
       playbackRate
     } = this.state;
     const speedRates = ["1.0x", "1.5x", "2.0x"];

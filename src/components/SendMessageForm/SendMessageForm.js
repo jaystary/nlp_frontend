@@ -68,20 +68,21 @@ class SendMessageForm extends Component {
         action="."
       >
         <Form.Field>
-          <TextArea
+          <TextArea style={{ fontSize: "10px" }}
             name="message"
             placeholder={"Enter your text..."}
-            rows="20"
+            rows="35"
+
             onChange={this.handleChange}
           />
         </Form.Field>
         <Grid >
           <Grid.Row>
-            
+
             <Grid.Column floated='right' width={5}>
-              <Button 
+              <Button
                 type="submit"
-                color="blue" 
+                color="blue"
                 onClick={this.handleClick}
               >
                 Send

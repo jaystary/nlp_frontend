@@ -3,7 +3,8 @@ import ReactTable from "react-table";
 import { connect } from "react-redux";
 import { Icon, Container } from "semantic-ui-react";
 import { makeTableData } from "../../redux/selectors";
-import { 
+import { makeSocket } from "../../redux/selectors";
+import {
   deleteTableData,
   setCurrentURL,
 } from "../../redux/actions";
@@ -13,23 +14,30 @@ import "react-table/react-table.css";
 
 class TableComponent extends Component {
   removeRow = (id) => {
+    const { socket } = this.props;
     this.props.deleteTableData({ id });
+    socket.emit(
+      'delete_table',
+      {
+        user: "",
+        uid: id,
+      }
+    );
   }
 
   handleClick = (e, urlData) => {
     e.preventDefault();
-    const { setCurrentURL } = this.props;
+    const { setCurrentURL, socket } = this.props;
     console.log('data', urlData);
-
     setCurrentURL(urlData);
   }
 
   render() {
     const { tableData } = this.props;
-    
+
     return (
       <Container>
-        <ReactTable 
+        <ReactTable
           data={tableData}
           style={ReactTableStyle}
           className="-striped -highlight"
@@ -39,11 +47,13 @@ class TableComponent extends Component {
               id: "date",
               accessor: "date",
               style: CenterStyle,
+              width: 150,
             },
             {
               Header: "Duration",
               accessor: "duration",
               style: CenterStyle,
+              width: 100,
             },
             {
               Header: "Title",
@@ -51,17 +61,18 @@ class TableComponent extends Component {
               style: CenterStyle,
             },
             {
-              Header: "Download",
-              accessor: "download",
+              Header: "Play",
+              accessor: "play",
+              width: 65,
               Cell: (row) => {
-                const urlData = "https://audiomodelstts.s3.eu-central-1.amazonaws.com/"+tableData[row.index].id+".mp3";
+                const urlData = "https://audiomodelstts.s3.eu-central-1.amazonaws.com/" + tableData[row.index].id + ".mp3";
                 return (
                   <div style={CenterStyle}>
-                    <a href={urlData} onClick={(e) => this.handleClick(e, urlData)}>Download</a>
+                    <a href={urlData} onClick={(e) => this.handleClick(e, urlData)}><Icon name="play" /></a>
                   </div>
                 )
               },
-              style: {CenterStyle},
+              style: { CenterStyle },
             },
             {
               Header: "Delete",
@@ -71,13 +82,13 @@ class TableComponent extends Component {
               Expander: (row) => {
                 return (
                   <div style={CenterStyle} onClick={() => this.removeRow(tableData[row.index].id)}>
-                    <Icon name="trash"/>
+                    <Icon name="trash" />
                   </div>
                 );
               },
             },
           ]}
-          defaultPageSize={10}
+          defaultPageSize={20}
         />
       </Container>
     );
@@ -85,7 +96,7 @@ class TableComponent extends Component {
 }
 
 const ReactTableStyle = {
-  width: "800px", 
+  width: "800px",
   marginLeft: "10px",
 }
 
@@ -96,7 +107,9 @@ const CenterStyle = {
 
 const mapStateToProps = (state) => ({
   tableData: makeTableData(state),
+  socket: makeSocket(state),
 });
+
 
 const mapDispatchToProps = {
   deleteTableData,

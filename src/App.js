@@ -4,8 +4,10 @@ import socketIOClient from "socket.io-client";
 import MessageWindow from "./containers/MessageWindow";
 import Header from "./components/Header/Header.js";
 import Logo from "./img/Logo_Small.png";
+import { Container, Grid, Image } from "semantic-ui-react";
 
-import { 
+
+import {
   setSocket,
   setTableData,
   setPlayerData,
@@ -41,31 +43,33 @@ class App extends Component {
   setSocketListeners() {
     const { setTableData, setPlayerData, setPlayerURLs, appendMessage } = this.props;
     socket.on("table", (payload) => {
+      console.log(payload)
       const { data } = payload;
       let table = [];
       console.log("Logging incomcing Table Message", data);
       console.log(":", typeof data);
-      if ( Array.isArray(data) ) {
+      if (Array.isArray(data)) {
         console.log('Table update:', data);
         table = data;
       } else {
         table.push(data);
       }
+      
       setTableData(data);
     });
     socket.on("player", (payload) => {
       const { data } = payload;
       const message = [], playerData = [], playerURLs = [];
       console.log("Logging incoming Player Message", data);
-      if ( Array.isArray(data) ) {
+      if (Array.isArray(data)) {
         data.forEach((item) => {
-          const { id, downloadURL, sentence, duration, audio_id, job_id} = item;
+          const { id, downloadURL, sentence, duration, audio_id, job_id } = item;
           message.push({ id, downloadURL, sentence });
           playerData.push({ duration, audio_id, job_id });
           playerURLs.push(job_id);
         });
       } else {
-        const { id, downloadURL, sentence, duration, audio_id, job_id} = data;
+        const { id, downloadURL, sentence, duration, audio_id, job_id } = data;
         message.push({ id, downloadURL, sentence });
         playerData.push({ duration, audio_id, job_id });
         playerURLs.push(job_id);
@@ -75,7 +79,7 @@ class App extends Component {
       setPlayerURLs(playerURLs);
       setPlayerData(playerData);
     })
-    
+
   }
 
   getData = resp => {
@@ -104,26 +108,30 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header/>
-        <div className="Container">
-       <div align="left">
-        <img src={Logo} alt="logo"  height="80" width="110"/>
-       </div>
-       <div align="right">
-        <b>Logged in as: </b>{this.state.user}
-       </div>
-       </div>
-        <MessageWindow ref={this.messagewindowElement} />
+        <Container style={ContainerStyle}>
+          <Header />
+          <Grid >
+            <Grid.Column floated='left' width={5}>
+              <Image src={Logo} alt="logo" minHeight="45%" width="45%" />
+            </Grid.Column>
+            <Grid.Column floated='right' width={5} verticalAlign='bottom'>
+              <b>Logged in as: </b>{this.state.user}
+            </Grid.Column>
+          </Grid>
+          <MessageWindow ref={this.messagewindowElement} />
+        </Container>
       </div>
     );
   }
 }
 
+const ContainerStyle = { minHeight: "100vh", width: "800px" };
+
 const mapStateToProps = (state) => ({
 
 });
 
-const mapDispatchToProps = { 
+const mapDispatchToProps = {
   setSocket,
   setTableData,
   setPlayerData,
