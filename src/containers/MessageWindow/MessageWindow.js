@@ -1,12 +1,12 @@
 import React, { Component } from "react";
+import { Container, Grid } from "semantic-ui-react";
 // import propTypes from "prop-types";
 // import MessageComponent from "./MessageComponent";
 
-import SendMessageForm from "./SendMessageForm";
-import { Container, Grid } from "semantic-ui-react";
-import Player from "./PlayerComponent";
-import Message from "./Message";
-import TableComponent from "./TableComponent";
+import SendMessageForm from "../../components/SendMessageForm";
+import Message from "../../components/Message";
+import Player from "../../components/Player";
+import TableComponent from "../../components/TableComponent";
 
 import {
   Element,
@@ -18,16 +18,16 @@ import {
 class MessageWindow extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       messages: [],
       message: "",
-      dataSendMessage: ""
+      dataSendMessage: "",
     };
-
   }
 
   componentDidMount() {
-    //socket.on("get_data", this.getData);
+    // socket.on("get_data", this.getData);
     Events.scrollEvent.register("begin", function (to, element) {
       console.log("begin", arguments);
     });
@@ -55,14 +55,14 @@ class MessageWindow extends Component {
     });
   };
 
-  getData = response => {
+  getData = (response) => {
     console.log(response);
     //const message = { name: this.state.name, message: messageString };
     //this.setState(state => ({ messages: [...state.messages, message] }));
     //this.setState({ food_data: foodItems });
   };
 
-  submitMessage = messageString => {
+  submitMessage = (messageString) => {
     //socket.emit("get_data", messageString);
   };
 
@@ -84,11 +84,11 @@ class MessageWindow extends Component {
                 style={ElementStyle}
               >
                 <Message message={this.state.message} />
-                {/*
+                {/* {
                 {this.state.messages.map((messages, index) => (
                   <Message key={index} message={messages.message} />
                 ))}
-                */}
+                } */}
               </Element>
             </Grid.Column>
           </Grid.Row>
@@ -105,18 +105,18 @@ class MessageWindow extends Component {
   }
 }
 
-const ContainerStyle = { minHeight: "100vh", width: "800px" };
-const InptutStyle = { marginTop: 40 };
+const ContainerStyle = { minHeight: "100vh", width: "800px", };
+const InptutStyle = { marginTop: 40, };
 const TextMessageStyle = {
+  background: "#93b5b3",
+  borderRadius: "4px",
   marginLeft: "10px",
   marginRight: "10px",
-  background: "#93b5b3",
-  borderRadius: "4px"
 };
 const ElementStyle = {
   position: "relative",
   height: "350px",
-  overflow: "auto"
+  overflow: "auto",
 };
 
 export default MessageWindow;
