@@ -9,7 +9,7 @@ class Player extends Component {
     super(props);
 
     this.state = {
-      url: [],
+      url: null,
       playing: true,
       volume: 0.8,
       muted: false,
@@ -22,7 +22,7 @@ class Player extends Component {
 
 
   componentDidMount() {
-    this.load(this.props.playerURLs[0]);
+    this.load("https://audiomodelstts.s3.eu-central-1.amazonaws.com/0768834c-b89a-11e9-b553-abe115ca8e9a.mp3");
   }
 
   componentDidUpdate(prevProps) {
@@ -33,7 +33,7 @@ class Player extends Component {
       console.log('Updated startIndex');
       this.load(this.props.playerURLs[this.props.startIndex]);
     }
-
+    
     return true;
   }
 
@@ -53,7 +53,7 @@ class Player extends Component {
     const playerURLsIndex = playerURLs.indexOf(url);
     const { addMessage, messages } = this.props;
     
-    if( url) {
+    if(url) {
       addMessage(messages[playerURLsIndex]);
     }
   }
@@ -67,6 +67,9 @@ class Player extends Component {
       url: playerURLs[playerURLsIndex + 1],
       playing: true,
     })
+
+    //this.load("https://audiomodelstts.s3.eu-central-1.amazonaws.com/0768834c-b89a-11e9-b553-abe115ca8e9a.mp3");
+  
 
     //this.setState({ playing: true });
   };

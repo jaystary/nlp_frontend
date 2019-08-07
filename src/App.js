@@ -62,6 +62,7 @@ class App extends Component {
       const message = [], playerData = [], playerURLs = [];
       console.log("Logging incoming Player Message", data);
       if (Array.isArray(data)) {
+        console.log('array received', data);
         data.forEach((item) => {
           const { id, downloadURL, sentence, duration, audio_id, job_id } = item;
           message.push({ id, downloadURL, sentence });
@@ -69,12 +70,13 @@ class App extends Component {
           playerURLs.push(job_id);
         });
       } else {
+        console.log('object recevied', data);
         const { id, downloadURL, sentence, duration, audio_id, job_id } = data;
         message.push({ id, downloadURL, sentence });
         playerData.push({ duration, audio_id, job_id });
         playerURLs.push(job_id);
       }
-
+      console.log("Logging TypeOf " + typeof(playerURLs))
       appendMessage(message);
       setPlayerURLs(playerURLs);
       setPlayerData(playerData);

@@ -15,7 +15,7 @@ class Message extends React.Component {
     return (
       <div style={messageStyle}>
         <a href={playerURL} onClick={(e) => this.handleClick(e, index)}>
-          {message}
+          {message && message.sentence}
         </a>
       </div>
     );

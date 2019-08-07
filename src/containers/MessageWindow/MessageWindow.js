@@ -62,6 +62,7 @@ class MessageWindow extends Component {
   addMessage = (message) => {
     const { messages } = this.state;
 
+    console.log('error handler', message);
     messages.push(message);
     this.setState({ messages });
   };
